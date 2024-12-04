@@ -31,6 +31,7 @@ interface UrlSet {
   urls: readonly Url[];
 }
 
+/** */
 export class Sitemap {
   urlSet: UrlSet;
 
@@ -40,6 +41,11 @@ export class Sitemap {
     };
   }
 
+  /**
+   * Parses a string and validates if it can be converted to a sitemap.
+   * @param obj
+   * @returns
+   */
   static fromString(obj: string): Sitemap {
     const xml = parse(obj);
     const parsedXml = v.parse(SitemapSchema, xml);
