@@ -26,6 +26,6 @@ export const handler: Handlers = {
     await kv.atomic().set([pageId], page).commit();
     kv.close();
 
-    return new Response();
+    return new Response(JSON.stringify(page));
   },
 };

@@ -1,40 +1,39 @@
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { NewIndexButton } from "$islands/new-index-button.tsx";
 import { IndexAllButton } from "$islands/index-all-button.tsx";
-import { IndexPageButton } from "$islands/index-page-button.tsx";
 import { Page } from "$utils/page.ts";
+import { Pages } from "$islands/Pages.tsx";
 
-export default async function Home() {
-  const kv = await Deno.openKv("./db.dat");
-  const pagesIterator = kv.list<Page>({
-    prefix: [],
-  });
-  const pages: Page[] = [];
-  for await (const page of pagesIterator) {
-    pages.push(page.value);
-  }
-  kv.close();
+interface Props {
+  pages: Page[];
+}
 
+export const handler: Handlers<Props> = {
+  GET: async function (_req, ctx) {
+    const kv = await Deno.openKv("./db.dat");
+    const pagesIterator = kv.list<Page>({
+      prefix: [],
+    });
+    const pages: Page[] = [];
+    for await (const page of pagesIterator) {
+      pages.push(page.value);
+    }
+    kv.close();
+
+    return ctx.render({
+      pages: pages,
+    });
+  },
+};
+
+export default function Home(
+  props: PageProps<Props>,
+) {
   return (
     <div>
       <NewIndexButton />
       <IndexAllButton />
-      {pages.map((page) => {
-        return (
-          <details>
-            <summary>
-              <span>{page.title !== null ? page.title : page.url}</span>
-              <IndexPageButton pageId={page.id} />
-            </summary>
-            <div>
-              <p>Database Key: {page.id}</p>
-              <p>Last modified: {page.lastModified}</p>
-              <p>
-                URL: <a href={page.url}>{page.url}</a>
-              </p>
-            </div>
-          </details>
-        );
-      })}
+      <Pages pages={props.data.pages} />
     </div>
   );
 }
