@@ -4,7 +4,8 @@ import { Page } from "$utils/page.ts";
 
 export const handler: Handlers = {
   GET: async function (_req, _ctx): Promise<Response> {
-    const url = "_";
+    const url = Deno.env.get("URL");
+
     const sitemapUrl = new URL("sitemap.xml", url);
 
     console.log("Fetching sitemap at", sitemapUrl);
