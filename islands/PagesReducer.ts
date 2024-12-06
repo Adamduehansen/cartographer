@@ -1,6 +1,6 @@
 import { Page } from "$utils/page.ts";
 
-interface PageReducerState {
+export interface PagesReducerState {
   pages: Page[];
 }
 
@@ -15,9 +15,9 @@ interface UpdatePageAction {
 type PageReducerActions = UpdatePageAction;
 
 export function pagesReducer(
-  state: PageReducerState,
+  state: PagesReducerState,
   action: PageReducerActions,
-): PageReducerState {
+): PagesReducerState {
   switch (action.type) {
     case "UPDATE_PAGE":
       return {
