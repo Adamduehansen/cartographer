@@ -7,6 +7,7 @@ export function Pages(): JSX.Element {
 
   return (
     <div>
+      <p>{pages.length} pages found in sitemap</p>
       {pages.map((page) => {
         return (
           <PageDetails
