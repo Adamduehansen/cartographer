@@ -12,7 +12,12 @@ interface UpdatePageAction {
   };
 }
 
-type PageReducerActions = UpdatePageAction;
+interface SetPagesAction {
+  type: "SET_PAGES";
+  payload: Page[];
+}
+
+type PageReducerActions = UpdatePageAction | SetPagesAction;
 
 export function pagesReducer(
   state: PagesReducerState,
@@ -33,6 +38,10 @@ export function pagesReducer(
             ...action.payload.updatedPage,
           };
         }),
+      };
+    case "SET_PAGES":
+      return {
+        pages: action.payload,
       };
     default:
       return {

@@ -24,6 +24,7 @@ export const handler: Handlers = {
 
     const kv = await Deno.openKv("./db.dat");
 
+    let pages: Page[] = [];
     for (const { loc, lastMod } of sitemap.urlSet.urls) {
       const pageId = crypto.randomUUID();
       const page: Page = {
@@ -32,9 +33,12 @@ export const handler: Handlers = {
         lastModified: lastMod,
         title: null,
       };
-      kv.set([pageId], page);
+      pages = [...pages, page];
+      await kv.set([pageId], page);
     }
 
-    return new Response("Hello, World!");
+    kv.close();
+
+    return new Response(JSON.stringify(pages));
   },
 };
