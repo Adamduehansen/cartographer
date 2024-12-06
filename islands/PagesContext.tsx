@@ -1,16 +1,17 @@
 import { ComponentChildren, createContext } from "preact";
-import { useContext, useState } from "preact/hooks";
+import { useContext, useReducer } from "preact/hooks";
 import { Page } from "$utils/page.ts";
 import { JSX } from "preact/jsx-runtime";
+import { pagesReducer } from "$islands/PagesReducer.ts";
 
 interface PageContextProps {
   pages: Page[];
-  updatePages: (pages: Page[]) => void;
+  updatePage: (pageId: string, page: Page) => void;
 }
 
 export const PagesContext = createContext<PageContextProps>({
   pages: [],
-  updatePages: () => {},
+  updatePage: () => {},
 });
 
 interface Props {
@@ -19,17 +20,25 @@ interface Props {
 }
 
 export function PagesProvider(props: Props): JSX.Element {
-  const [pages, setPages] = useState(props.pages);
+  const [state, dispatch] = useReducer(pagesReducer, {
+    pages: props.pages,
+  });
 
-  function updatePages(pages: Page[]): void {
-    setPages(pages);
+  function updatePage(pageId: string, updatedPage: Page): void {
+    dispatch({
+      type: "UPDATE_PAGE",
+      payload: {
+        id: pageId,
+        updatedPage: updatedPage,
+      },
+    });
   }
 
   return (
     <PagesContext.Provider
       value={{
-        pages: pages,
-        updatePages: updatePages,
+        pages: state.pages,
+        updatePage: updatePage,
       }}
     >
       {props.children}
