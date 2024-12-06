@@ -21,7 +21,10 @@ export function PageDetails({ page, onUpdated }: Props): JSX.Element {
         <p>Database Key: {page.id}</p>
         <p>Last modified: {page.lastModified}</p>
         <p>
-          URL: <a href={page.url}>{page.url}</a>
+          URL:{" "}
+          <a href={page.url} target="_BLANK" rel="noopener noreferrer">
+            {page.url}
+          </a>
         </p>
       </div>
     </details>
