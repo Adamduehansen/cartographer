@@ -3,4 +3,5 @@ export interface Page {
   url: string;
   lastModified: string;
   title: string | null;
+  status: number | null;
 }

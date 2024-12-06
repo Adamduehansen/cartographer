@@ -19,6 +19,7 @@ export function PageDetails({ page, onUpdated }: Props): JSX.Element {
       </summary>
       <div>
         <p>Database Key: {page.id}</p>
+        <p>Status: {page.status}</p>
         <p>Last modified: {page.lastModified}</p>
         <p>
           URL:{" "}

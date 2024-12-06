@@ -22,6 +22,9 @@ export const handler: Handlers = {
     console.log("Setting the title...");
     page!.title = parsedHtml.html.head.title;
 
+    console.log("Setting the status...");
+    page!.status = response.status;
+
     console.log("Storing updated page...");
     await kv.atomic().set([pageId], page).commit();
     kv.close();

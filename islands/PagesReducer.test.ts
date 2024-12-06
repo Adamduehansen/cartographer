@@ -9,6 +9,7 @@ Deno.test("Should update page in state", () => {
       lastModified: "",
       title: "",
       url: "",
+      status: null,
     }],
   };
 
@@ -18,6 +19,7 @@ Deno.test("Should update page in state", () => {
       lastModified: "",
       title: "any-title",
       url: "",
+      status: null,
     }],
   };
 
@@ -31,6 +33,7 @@ Deno.test("Should update page in state", () => {
         lastModified: "",
         title: "any-title",
         url: "",
+        status: null,
       },
     },
   });
@@ -51,6 +54,7 @@ Deno.test("Set pages in state", () => {
       lastModified: "",
       title: "any-title",
       url: "",
+      status: null,
     }],
   };
 
@@ -62,6 +66,7 @@ Deno.test("Set pages in state", () => {
       lastModified: "",
       title: "any-title",
       url: "",
+      status: null,
     }],
   });
 

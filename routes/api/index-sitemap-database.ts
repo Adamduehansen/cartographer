@@ -32,6 +32,7 @@ export const handler: Handlers = {
         url: loc,
         lastModified: lastMod,
         title: null,
+        status: null,
       };
       pages = [...pages, page];
       await kv.set([pageId], page);
