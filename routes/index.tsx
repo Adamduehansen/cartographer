@@ -3,6 +3,7 @@ import { NewIndexButton } from "$islands/new-index-button.tsx";
 import { IndexAllButton } from "$islands/index-all-button.tsx";
 import { Page } from "$utils/page.ts";
 import { Pages } from "$islands/Pages.tsx";
+import { PagesProvider } from "$islands/PagesContext.tsx";
 
 interface Props {
   pages: Page[];
@@ -30,10 +31,10 @@ export default function Home(
   props: PageProps<Props>,
 ) {
   return (
-    <div>
+    <PagesProvider pages={props.data.pages}>
       <NewIndexButton />
       <IndexAllButton />
-      <Pages pages={props.data.pages} />
-    </div>
+      <Pages />
+    </PagesProvider>
   );
 }

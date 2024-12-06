@@ -1,14 +1,9 @@
 import { JSX } from "preact/jsx-runtime";
-import { useState } from "preact/hooks";
-import { Page } from "$utils/page.ts";
 import { PageDetails } from "$islands/PageDetails.tsx";
+import { usePages } from "$islands/PagesContext.tsx";
 
-interface Props {
-  pages: Page[];
-}
-
-export function Pages(props: Props): JSX.Element {
-  const [pages, setPages] = useState(props.pages);
+export function Pages(): JSX.Element {
+  const { pages, updatePages } = usePages();
 
   return (
     <div>
@@ -28,7 +23,7 @@ export function Pages(props: Props): JSX.Element {
                   ...updatedPage,
                 };
               });
-              setPages(updatedPages);
+              updatePages(updatedPages);
             }}
           />
         );

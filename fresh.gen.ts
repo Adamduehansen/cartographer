@@ -10,6 +10,7 @@ import * as $index from "./routes/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $PageDetails from "./islands/PageDetails.tsx";
 import * as $Pages from "./islands/Pages.tsx";
+import * as $PagesContext from "./islands/PagesContext.tsx";
 import * as $index_all_button from "./islands/index-all-button.tsx";
 import * as $index_page_button from "./islands/index-page-button.tsx";
 import * as $new_index_button from "./islands/new-index-button.tsx";
@@ -27,6 +28,7 @@ const manifest = {
     "./islands/Counter.tsx": $Counter,
     "./islands/PageDetails.tsx": $PageDetails,
     "./islands/Pages.tsx": $Pages,
+    "./islands/PagesContext.tsx": $PagesContext,
     "./islands/index-all-button.tsx": $index_all_button,
     "./islands/index-page-button.tsx": $index_page_button,
     "./islands/new-index-button.tsx": $new_index_button,
