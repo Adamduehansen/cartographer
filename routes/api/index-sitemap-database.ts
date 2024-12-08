@@ -22,6 +22,7 @@ export const handler: Handlers = {
 
     console.log("Storing sitemap in database");
 
+    await Deno.remove("./db.dat");
     const kv = await Deno.openKv("./db.dat");
 
     let pages: Page[] = [];
