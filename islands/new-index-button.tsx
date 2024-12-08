@@ -6,12 +6,24 @@ export function NewIndexButton(): JSX.Element {
   const [pending, setPending] = useState<"error" | "idle" | "loading">("idle");
   const { setPages } = usePages();
 
-  async function startIndex() {
+  function startIndex() {
     try {
       setPending("loading");
-      const response = await fetch("/api/index-sitemap-database");
-      const json = await response.json();
-      setPages(json);
+      const eventSource = new EventSource("/api/index-sitemap-database");
+      eventSource.addEventListener("open", () => {
+        console.log("Connection established!");
+      });
+      eventSource.addEventListener("error", () => {
+        console.log("Connection error!");
+      });
+      eventSource.addEventListener("message", (ev) => {
+        console.log("Connection message:", ev.data);
+        const data = JSON.parse(ev.data);
+        if (data.type === "pages") {
+          setPages(data.value);
+          eventSource.close();
+        }
+      });
       setPending("idle");
     } catch (error) {
       setPending("error");
