@@ -29,7 +29,6 @@ export const handler: Handlers = {
 
         await Deno.remove("./db.dat");
         const kv = await Deno.openKv("./db.dat");
-        let pages: Page[] = [];
         for (const { loc, lastMod } of sitemap.urlSet.urls) {
           const pageId = crypto.randomUUID();
           const page: Page = {
@@ -39,13 +38,21 @@ export const handler: Handlers = {
             title: null,
             status: null,
           };
-          pages = [...pages, page];
           await kv.set([pageId], page);
+        }
+
+        const pagesIterator = kv.list<Page>({
+          prefix: [],
+        });
+        const pages: Page[] = [];
+        for await (const page of pagesIterator) {
+          pages.push(page.value);
         }
 
         kv.close();
 
         channel.send("pages", pages);
+        channel.send("message", "Indexing pages...");
       },
       cancel: function () {
         console.log("Cancelled!");

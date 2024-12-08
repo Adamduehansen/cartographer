@@ -21,6 +21,7 @@ export function NewIndexButton(): JSX.Element {
         const data = JSON.parse(ev.data);
         if (data.type === "pages") {
           setPages(data.value);
+          console.log("Closing connection.");
           eventSource.close();
         }
       });
