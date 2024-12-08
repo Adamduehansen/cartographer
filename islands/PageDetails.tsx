@@ -1,6 +1,7 @@
 import { JSX } from "preact/jsx-runtime";
 import { Page } from "$utils/page.ts";
 import { IndexPageButton } from "$islands/index-page-button.tsx";
+import { PageDetailsHeader } from "$islands/PageDetailsHeader.tsx";
 
 interface Props {
   page: Page;
@@ -11,7 +12,7 @@ export function PageDetails({ page, onUpdated }: Props): JSX.Element {
   return (
     <details>
       <summary>
-        <span>{page.title !== null ? page.title : page.url}</span>
+        <PageDetailsHeader title={page.title} url={page.url} />
         <IndexPageButton
           pageId={page.id}
           onIndexed={onUpdated}
@@ -21,12 +22,6 @@ export function PageDetails({ page, onUpdated }: Props): JSX.Element {
         <p>Database Key: {page.id}</p>
         <p>Status: {page.status}</p>
         <p>Last modified: {page.lastModified}</p>
-        <p>
-          URL:{" "}
-          <a href={page.url} target="_BLANK" rel="noopener noreferrer">
-            {page.url}
-          </a>
-        </p>
       </div>
     </details>
   );

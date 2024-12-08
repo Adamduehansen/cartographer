@@ -9,6 +9,7 @@ import * as $api_index_sitemap_database from "./routes/api/index-sitemap-databas
 import * as $index from "./routes/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $PageDetails from "./islands/PageDetails.tsx";
+import * as $PageDetailsHeader from "./islands/PageDetailsHeader.tsx";
 import * as $Pages from "./islands/Pages.tsx";
 import * as $PagesContext from "./islands/PagesContext.tsx";
 import * as $PagesReducer from "./islands/PagesReducer.ts";
@@ -28,6 +29,7 @@ const manifest = {
   islands: {
     "./islands/Counter.tsx": $Counter,
     "./islands/PageDetails.tsx": $PageDetails,
+    "./islands/PageDetailsHeader.tsx": $PageDetailsHeader,
     "./islands/Pages.tsx": $Pages,
     "./islands/PagesContext.tsx": $PagesContext,
     "./islands/PagesReducer.ts": $PagesReducer,
