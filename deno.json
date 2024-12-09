@@ -32,7 +32,8 @@
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "$std/": "https://deno.land/std@0.216.0/",
     "$utils/": "./utils/",
-    "$islands/": "./islands/"
+    "$islands/": "./islands/",
+    "$services/": "./services/"
   },
   "compilerOptions": {
     "jsx": "react-jsx",

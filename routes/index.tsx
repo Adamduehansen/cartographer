@@ -4,25 +4,43 @@ import { IndexAllButton } from "$islands/index-all-button.tsx";
 import { Page } from "$utils/page.ts";
 import { Pages } from "$islands/Pages.tsx";
 import { PagesProvider } from "$islands/PagesContext.tsx";
+import { db, getPages } from "$services/db.ts";
 
 interface Props {
   pages: Page[];
 }
 
 export const handler: Handlers<Props> = {
-  GET: async function (_req, ctx) {
-    const kv = await Deno.openKv("./db.dat");
-    const pagesIterator = kv.list<Page>({
-      prefix: [],
-    });
-    const pages: Page[] = [];
-    for await (const page of pagesIterator) {
-      pages.push(page.value);
+  GET: async function (req, ctx) {
+    if (req.headers.get("accept") === "text/event-stream") {
+      const stream = db.watch([[]]).getReader();
+      const readableStream = new ReadableStream({
+        start: async function (controller) {
+          while (true) {
+            try {
+              if ((await stream.read()).done) {
+                return;
+              }
+
+              const pages = await getPages();
+              const chunk = `data: ${JSON.stringify(pages)}\n\n`;
+              controller.enqueue(new TextEncoder().encode(chunk));
+            } catch (error) {
+              console.error("Error refreshing pages", error);
+            }
+          }
+        },
+      });
+
+      return new Response(readableStream, {
+        headers: {
+          "Content-Type": "text/event-stream",
+        },
+      });
     }
-    kv.close();
 
     return ctx.render({
-      pages: pages,
+      pages: await getPages(),
     });
   },
 };
