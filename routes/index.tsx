@@ -5,7 +5,7 @@ import { PagesProvider } from "$islands/PagesContext.tsx";
 
 export default function Home() {
   return (
-    <PagesProvider pages={[]}>
+    <PagesProvider>
       <NewIndexButton />
       <IndexAllButton />
       <Pages />

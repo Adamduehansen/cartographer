@@ -17,13 +17,12 @@ export const PagesContext = createContext<PageContextProps>({
 });
 
 interface Props {
-  pages: Page[];
   children: ComponentChildren;
 }
 
 export function PagesProvider(props: Props): JSX.Element {
   const [state, dispatch] = useReducer(pagesReducer, {
-    pages: props.pages,
+    pages: [],
   });
 
   function updatePage(pageId: string, updatedPage: Page): void {
