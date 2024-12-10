@@ -1,39 +1,29 @@
 import { JSX } from "preact/jsx-runtime";
 import { useState } from "preact/hooks";
+import * as v from "@valibot/valibot";
 import { usePages } from "$islands/PagesContext.tsx";
+import { PagesSchema } from "$utils/page.ts";
 
 export function NewIndexButton(): JSX.Element {
-  const [pending, setPending] = useState<"error" | "idle" | "loading">("idle");
+  const [pending, setPending] = useState<"idle" | "fetching">("idle");
   const { setPages } = usePages();
 
-  function startIndex() {
+  async function startIndex() {
+    setPending("fetching");
     try {
-      setPending("loading");
-      const eventSource = new EventSource("/api/index-sitemap-database");
-      eventSource.addEventListener("open", () => {
-        console.log("Connection established!");
-      });
-      eventSource.addEventListener("error", () => {
-        console.log("Connection error!");
-      });
-      eventSource.addEventListener("message", (ev) => {
-        console.log("Connection message:", ev.data);
-        const data = JSON.parse(ev.data);
-        if (data.type === "pages") {
-          setPages(data.value);
-          console.log("Closing connection.");
-          eventSource.close();
-        }
-      });
-      setPending("idle");
+      const response = await fetch("api/get-index");
+      const json = await response.json();
+      const pages = v.parse(PagesSchema, json);
+      setPages(pages);
     } catch (error) {
-      setPending("error");
-      throw error;
+      console.error(error);
     }
+
+    setPending("idle");
   }
 
   return (
-    <button disabled={pending === "loading"} onClick={startIndex}>
+    <button disabled={pending === "fetching"} onClick={startIndex}>
       New index!
     </button>
   );

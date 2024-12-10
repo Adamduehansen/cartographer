@@ -34,7 +34,6 @@ export const handler: Handlers = {
           const page: Page = {
             id: pageId,
             url: loc,
-            lastModified: lastMod,
             title: null,
             status: null,
           };

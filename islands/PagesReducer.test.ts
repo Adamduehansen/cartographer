@@ -6,7 +6,6 @@ Deno.test("Should update page in state", () => {
   const initialState: PagesReducerState = {
     pages: [{
       id: "1",
-      lastModified: "",
       title: "",
       url: "",
       status: null,
@@ -16,7 +15,6 @@ Deno.test("Should update page in state", () => {
   const expectedState: PagesReducerState = {
     pages: [{
       id: "1",
-      lastModified: "",
       title: "any-title",
       url: "",
       status: null,
@@ -30,7 +28,6 @@ Deno.test("Should update page in state", () => {
       id: "1",
       updatedPage: {
         id: "1",
-        lastModified: "",
         title: "any-title",
         url: "",
         status: null,
@@ -51,7 +48,6 @@ Deno.test("Set pages in state", () => {
   const expectedState: PagesReducerState = {
     pages: [{
       id: "1",
-      lastModified: "",
       title: "any-title",
       url: "",
       status: null,
@@ -63,7 +59,6 @@ Deno.test("Set pages in state", () => {
     type: "SET_PAGES",
     payload: [{
       id: "1",
-      lastModified: "",
       title: "any-title",
       url: "",
       status: null,

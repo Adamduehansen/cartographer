@@ -22,7 +22,7 @@ const SitemapSchema = v.object({
   }),
 });
 
-interface Url {
+export interface Url {
   loc: string;
   lastMod: string;
 }
