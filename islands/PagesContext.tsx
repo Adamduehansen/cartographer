@@ -18,6 +18,7 @@ export const PagesContext = createContext<PageContextProps>({
 
 interface Props {
   children: ComponentChildren;
+  pages: Page[];
 }
 
 export function PagesProvider(props: Props): JSX.Element {
