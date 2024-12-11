@@ -5,7 +5,6 @@
 import * as $_indexId_ from "./routes/[indexId].tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
-import * as $api_get_index from "./routes/api/get-index.ts";
 import * as $api_index_page_pageId_ from "./routes/api/index-page/[pageId].ts";
 import * as $api_index_sitemap_database from "./routes/api/index-sitemap-database.ts";
 import * as $index from "./routes/index.tsx";
@@ -25,7 +24,6 @@ const manifest = {
     "./routes/[indexId].tsx": $_indexId_,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
-    "./routes/api/get-index.ts": $api_get_index,
     "./routes/api/index-page/[pageId].ts": $api_index_page_pageId_,
     "./routes/api/index-sitemap-database.ts": $api_index_sitemap_database,
     "./routes/index.tsx": $index,
