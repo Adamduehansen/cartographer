@@ -1,26 +1,33 @@
 import { JSX } from "preact/jsx-runtime";
 import { useState } from "preact/hooks";
-import { Page } from "$utils/page.ts";
 
 interface Props {
   pageId: string;
-  onIndexed: (page: Page) => void;
 }
 
-async function indexPage(pageId: string): Promise<void> {
-  const indexId = globalThis.location.pathname.substring(1);
-  await fetch(`/api/index-page?indexId=${indexId}&pageId=${pageId}`, {
-    method: "GET",
-  });
+async function indexPage(options: {
+  indexId: string;
+  pageId: string;
+}): Promise<void> {
+  await fetch(
+    `/api/index-page?indexId=${options.indexId}&pageId=${options.pageId}`,
+    {
+      method: "GET",
+    },
+  );
 }
 
-export function IndexPageButton({ pageId, onIndexed }: Props): JSX.Element {
+export function IndexPageButton({ pageId }: Props): JSX.Element {
   const [pending, setPending] = useState<"error" | "idle" | "loading">("idle");
 
   async function sendIndexPageRequest(): Promise<void> {
+    const indexId = globalThis.location.pathname.substring(1);
     try {
       setPending("loading");
-      const updatedPage = await indexPage(pageId);
+      await indexPage({
+        indexId: indexId,
+        pageId: pageId,
+      });
       setPending("idle");
     } catch (error) {
       setPending("error");

@@ -8,14 +8,13 @@ interface Props {
   onUpdated: (page: Page) => void;
 }
 
-export function PageDetails({ page, onUpdated }: Props): JSX.Element {
+export function PageDetails({ page }: Props): JSX.Element {
   return (
     <details>
       <summary>
         <PageDetailsHeader title={page.title} url={page.url} />
         <IndexPageButton
           pageId={page.id}
-          onIndexed={onUpdated}
         />
       </summary>
       <div>

@@ -9,16 +9,20 @@ export async function createIndex(options: {
   const indexId = encodeBase58(crypto.getRandomValues(new Uint8Array(8)));
   const timestamp = Date.now();
 
+  const operation = db.atomic();
+
   for (const page of options.pages) {
     const pageKvKey: Deno.KvKey = ["page", indexId, page.id];
-    await db.set(pageKvKey, page);
+    operation.set(pageKvKey, page);
   }
 
   const timestampKvKey: Deno.KvKey = ["timestamp", indexId];
-  await db.set(timestampKvKey, timestamp);
+  operation.set(timestampKvKey, timestamp);
 
   const updatedKvKey: Deno.KvKey = ["index_updated", indexId];
-  await db.set(updatedKvKey, timestamp);
+  operation.set(updatedKvKey, timestamp);
+
+  await operation.commit();
 
   return indexId;
 }
