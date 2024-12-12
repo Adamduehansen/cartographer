@@ -15,7 +15,7 @@ export const handler: Handlers<Props> = {
     const indexId = ctx.params.indexId;
 
     if (req.headers.get("accept") === "text/event-stream") {
-      const stream = db.watch([["page", indexId]]).getReader();
+      const stream = db.watch([["index_updated", indexId]]).getReader();
       const body = new ReadableStream({
         start: async function (controller) {
           console.log(

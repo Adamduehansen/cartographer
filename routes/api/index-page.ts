@@ -32,11 +32,15 @@ export const handler: Handlers = {
     page.title = parsedHtml.querySelector("title")?.textContent ?? null;
     page.status = response.status;
 
-    await updatePage({
+    const result = await updatePage({
       indexId: indexId,
       pageId: pageId,
       updatedPage: page,
     });
+
+    if (result.ok === false) {
+      throw Error("Result was not 'ok' for some reason...");
+    }
 
     return new Response(JSON.stringify(page));
   },

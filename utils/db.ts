@@ -14,8 +14,11 @@ export async function createIndex(options: {
     await db.set(pageKvKey, page);
   }
 
-  const indexKvKey: Deno.KvKey = ["timestamp", indexId];
-  await db.set(indexKvKey, timestamp);
+  const timestampKvKey: Deno.KvKey = ["timestamp", indexId];
+  await db.set(timestampKvKey, timestamp);
+
+  const updatedKvKey: Deno.KvKey = ["index_updated", indexId];
+  await db.set(updatedKvKey, timestamp);
 
   return indexId;
 }
@@ -23,6 +26,7 @@ export async function createIndex(options: {
 export async function getIndex(indexId: string): Promise<{
   id: string;
   timestamp: number;
+  lastUpdated: number;
   pages: Page[];
 }> {
   const pagesIterator = db.list<Page>({
@@ -30,6 +34,8 @@ export async function getIndex(indexId: string): Promise<{
   });
 
   const timestamp = await db.get<number>(["timestamp", indexId]);
+
+  const lastUpdated = await db.get<number>(["index_updated", indexId]);
 
   const pages: Page[] = [];
   for await (const page of pagesIterator) {
@@ -39,6 +45,7 @@ export async function getIndex(indexId: string): Promise<{
   return {
     id: indexId,
     timestamp: timestamp.value ?? 0,
+    lastUpdated: lastUpdated.value ?? 0,
     pages: pages,
   };
 }
@@ -62,5 +69,6 @@ export async function updatePage(options: {
 }) {
   const operation = db.atomic();
   operation.set(["page", options.indexId, options.pageId], options.updatedPage);
+  operation.set(["index_updated", options.indexId], Date.now());
   return await operation.commit();
 }
