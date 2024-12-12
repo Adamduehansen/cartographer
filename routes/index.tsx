@@ -1,8 +1,8 @@
 import { NewIndexButton } from "$islands/new-index-button.tsx";
 import { Handlers } from "$fresh/server.ts";
-import { encodeBase58 } from "@std/encoding/base58";
 import { Page } from "$utils/page.ts";
 import { Sitemap, Url } from "$utils/sitemap.ts";
+import { createIndex } from "$utils/db.ts";
 
 function adaptSitemapUrlToPage({ loc }: Url): Page {
   return {
@@ -23,11 +23,9 @@ export const handler: Handlers = {
     const sitemap = Sitemap.fromString(sitemapContent);
 
     const pages = sitemap.urlSet.urls.map(adaptSitemapUrlToPage);
-
-    const kv = Deno.openKv("./db.dat");
-    const indexId = encodeBase58(crypto.getRandomValues(new Uint8Array(8)));
-    for (const page of pages) {
-    }
+    const indexId = await createIndex({
+      pages: pages,
+    });
 
     const redirectUrl = new URL(indexId, req.url);
     return Response.redirect(redirectUrl);
