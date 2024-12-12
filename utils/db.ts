@@ -42,3 +42,25 @@ export async function getIndex(indexId: string): Promise<{
     pages: pages,
   };
 }
+
+export async function getPage(options: {
+  indexId: string;
+  pageId: string;
+}): Promise<Page | null> {
+  const { value: page } = await db.get<Page>([
+    "page",
+    options.indexId,
+    options.pageId,
+  ]);
+  return page;
+}
+
+export async function updatePage(options: {
+  indexId: string;
+  pageId: string;
+  updatedPage: Page;
+}) {
+  const operation = db.atomic();
+  operation.set(["page", options.indexId, options.pageId], options.updatedPage);
+  return await operation.commit();
+}

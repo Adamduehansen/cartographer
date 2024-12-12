@@ -7,12 +7,11 @@ interface Props {
   onIndexed: (page: Page) => void;
 }
 
-async function indexPage(pageId: string): Promise<Page> {
-  const response = await fetch(`/api/index-page/${pageId}`, {
+async function indexPage(pageId: string): Promise<void> {
+  const indexId = globalThis.location.pathname.substring(1);
+  await fetch(`/api/index-page?indexId=${indexId}&pageId=${pageId}`, {
     method: "GET",
   });
-  const body = await response.json();
-  return body;
 }
 
 export function IndexPageButton({ pageId, onIndexed }: Props): JSX.Element {
@@ -22,7 +21,6 @@ export function IndexPageButton({ pageId, onIndexed }: Props): JSX.Element {
     try {
       setPending("loading");
       const updatedPage = await indexPage(pageId);
-      onIndexed(updatedPage);
       setPending("idle");
     } catch (error) {
       setPending("error");

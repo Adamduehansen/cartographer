@@ -5,7 +5,7 @@
 import * as $_indexId_ from "./routes/[indexId].tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
-import * as $api_index_page_pageId_ from "./routes/api/index-page/[pageId].ts";
+import * as $api_index_page from "./routes/api/index-page.ts";
 import * as $api_index_sitemap_database from "./routes/api/index-sitemap-database.ts";
 import * as $index from "./routes/index.tsx";
 import * as $Counter from "./islands/Counter.tsx";
@@ -24,7 +24,7 @@ const manifest = {
     "./routes/[indexId].tsx": $_indexId_,
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
-    "./routes/api/index-page/[pageId].ts": $api_index_page_pageId_,
+    "./routes/api/index-page.ts": $api_index_page,
     "./routes/api/index-sitemap-database.ts": $api_index_sitemap_database,
     "./routes/index.tsx": $index,
   },
