@@ -23,7 +23,7 @@ interface Props {
 
 export function PagesProvider(props: Props): JSX.Element {
   const [state, dispatch] = useReducer(pagesReducer, {
-    pages: [],
+    pages: props.pages,
   });
 
   function updatePage(pageId: string, updatedPage: Page): void {

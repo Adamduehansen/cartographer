@@ -10,9 +10,35 @@ export async function createIndex(options: {
   const timestamp = Date.now();
 
   for (const page of options.pages) {
-    const kvKey: Deno.KvKey = [timestamp, page.id];
-    await db.set(kvKey, page);
+    const pageKvKey: Deno.KvKey = ["page", indexId, page.id];
+    await db.set(pageKvKey, page);
   }
 
+  const indexKvKey: Deno.KvKey = ["timestamp", indexId];
+  await db.set(indexKvKey, timestamp);
+
   return indexId;
+}
+
+export async function getIndex(indexId: string): Promise<{
+  id: string;
+  timestamp: number;
+  pages: Page[];
+}> {
+  const pagesIterator = db.list<Page>({
+    prefix: ["page", indexId],
+  });
+
+  const timestamp = await db.get<number>(["timestamp", indexId]);
+
+  const pages: Page[] = [];
+  for await (const page of pagesIterator) {
+    pages.push(page.value);
+  }
+
+  return {
+    id: indexId,
+    timestamp: timestamp.value ?? 0,
+    pages: pages,
+  };
 }
