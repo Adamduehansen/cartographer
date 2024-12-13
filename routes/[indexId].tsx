@@ -1,6 +1,6 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { Pages } from "$islands/Pages.tsx";
-import { PagesProvider } from "$islands/PagesContext.tsx";
+import { Pages } from "../islands/pages.tsx";
+import { PagesProvider } from "../islands/pages-context.tsx";
 import { Page } from "$utils/page.ts";
 import { getIndex } from "$utils/db.ts";
 import { db } from "$services/db.ts";

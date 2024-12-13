@@ -2,7 +2,7 @@ import { ComponentChildren, createContext } from "preact";
 import { useContext, useReducer } from "preact/hooks";
 import { Page } from "$utils/page.ts";
 import { JSX } from "preact/jsx-runtime";
-import { pagesReducer } from "$islands/PagesReducer.ts";
+import { pagesReducer } from "$islands/pages-reducer.ts";
 
 interface PageContextProps {
   pages: Page[];

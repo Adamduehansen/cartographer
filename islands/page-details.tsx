@@ -1,7 +1,7 @@
 import { JSX } from "preact/jsx-runtime";
 import { Page } from "$utils/page.ts";
 import { IndexPageButton } from "$islands/index-page-button.tsx";
-import { PageDetailsHeader } from "$islands/PageDetailsHeader.tsx";
+import { PageDetailsHeader } from "./page-details-header.tsx";
 
 interface Props {
   page: Page;

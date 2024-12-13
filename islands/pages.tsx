@@ -1,7 +1,7 @@
 import { JSX } from "preact/jsx-runtime";
 import { useEffect } from "preact/hooks";
-import { PageDetails } from "$islands/PageDetails.tsx";
-import { usePages } from "$islands/PagesContext.tsx";
+import { PageDetails } from "./page-details.tsx";
+import { usePages } from "./pages-context.tsx";
 import { Page } from "$utils/page.ts";
 
 export function Pages(): JSX.Element {

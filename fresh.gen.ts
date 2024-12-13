@@ -6,17 +6,15 @@ import * as $_indexId_ from "./routes/[indexId].tsx";
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_index_page from "./routes/api/index-page.ts";
-import * as $api_index_sitemap_database from "./routes/api/index-sitemap-database.ts";
 import * as $index from "./routes/index.tsx";
-import * as $Counter from "./islands/Counter.tsx";
-import * as $PageDetails from "./islands/PageDetails.tsx";
-import * as $PageDetailsHeader from "./islands/PageDetailsHeader.tsx";
-import * as $Pages from "./islands/Pages.tsx";
-import * as $PagesContext from "./islands/PagesContext.tsx";
-import * as $PagesReducer from "./islands/PagesReducer.ts";
 import * as $index_all_button from "./islands/index-all-button.tsx";
 import * as $index_page_button from "./islands/index-page-button.tsx";
 import * as $new_index_button from "./islands/new-index-button.tsx";
+import * as $page_details_header from "./islands/page-details-header.tsx";
+import * as $page_details from "./islands/page-details.tsx";
+import * as $pages_context from "./islands/pages-context.tsx";
+import * as $pages_reducer from "./islands/pages-reducer.ts";
+import * as $pages from "./islands/pages.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -25,19 +23,17 @@ const manifest = {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
     "./routes/api/index-page.ts": $api_index_page,
-    "./routes/api/index-sitemap-database.ts": $api_index_sitemap_database,
     "./routes/index.tsx": $index,
   },
   islands: {
-    "./islands/Counter.tsx": $Counter,
-    "./islands/PageDetails.tsx": $PageDetails,
-    "./islands/PageDetailsHeader.tsx": $PageDetailsHeader,
-    "./islands/Pages.tsx": $Pages,
-    "./islands/PagesContext.tsx": $PagesContext,
-    "./islands/PagesReducer.ts": $PagesReducer,
     "./islands/index-all-button.tsx": $index_all_button,
     "./islands/index-page-button.tsx": $index_page_button,
     "./islands/new-index-button.tsx": $new_index_button,
+    "./islands/page-details-header.tsx": $page_details_header,
+    "./islands/page-details.tsx": $page_details,
+    "./islands/pages-context.tsx": $pages_context,
+    "./islands/pages-reducer.ts": $pages_reducer,
+    "./islands/pages.tsx": $pages,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

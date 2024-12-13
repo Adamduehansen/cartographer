@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { pagesReducer, PagesReducerState } from "$islands/PagesReducer.ts";
+import { pagesReducer, PagesReducerState } from "$islands/pages-reducer.ts";
 
 Deno.test("Should update page in state", () => {
   // Arrange
