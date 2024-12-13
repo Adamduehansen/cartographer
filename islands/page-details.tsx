@@ -10,17 +10,18 @@ interface Props {
 
 export function PageDetails({ page }: Props): JSX.Element {
   return (
-    <details>
-      <summary>
+    <tr>
+      <td>
         <PageDetailsHeader title={page.title} url={page.url} />
+      </td>
+      <td>
+        {page.status}
+      </td>
+      <td>
         <IndexPageButton
           pageId={page.id}
         />
-      </summary>
-      <div>
-        <p>Database Key: {page.id}</p>
-        <p>Status: {page.status}</p>
-      </div>
-    </details>
+      </td>
+    </tr>
   );
 }

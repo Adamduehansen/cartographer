@@ -75,18 +75,28 @@ export function Pages(): JSX.Element {
         <button>Index all</button>
       </form>
 
-      <div>
-        {pages.map((page) => {
-          return (
-            <PageDetails
-              page={page}
-              onUpdated={(updatedPage) => {
-                updatePage(updatedPage.id, updatedPage);
-              }}
-            />
-          );
-        })}
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <td>Title</td>
+            <td>Status</td>
+            <td>Actions</td>
+          </tr>
+        </thead>
+
+        <tbody>
+          {pages.map((page) => {
+            return (
+              <PageDetails
+                page={page}
+                onUpdated={(updatedPage) => {
+                  updatePage(updatedPage.id, updatedPage);
+                }}
+              />
+            );
+          })}
+        </tbody>
+      </table>
     </>
   );
 }

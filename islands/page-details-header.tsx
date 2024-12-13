@@ -8,7 +8,7 @@ interface Props {
 export function PageDetailsHeader({ title, url }: Props): JSX.Element {
   return (
     <>
-      {title !== null && <div>{title}</div>}
+      {title !== null && title}
       <a href={url} target="_BLANK" rel="noopener noreferrer">{url}</a>
     </>
   );
