@@ -1,7 +1,7 @@
 import { encodeBase58 } from "@std/encoding/base58";
 import { Page } from "$utils/page.ts";
 
-const db = await Deno.openKv("./db.dat");
+export const db = await Deno.openKv("./db.dat");
 
 export async function createIndex(options: {
   pages: Page[];

@@ -1,9 +1,9 @@
+import { parse } from "node-html-parser";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { Pages } from "../islands/pages.tsx";
-import { PagesProvider } from "../islands/pages-context.tsx";
+import { Pages } from "$islands/pages.tsx";
+import { PagesProvider } from "$islands/pages-context.tsx";
 import { Page } from "$utils/page.ts";
-import { getIndex } from "$utils/db.ts";
-import { db } from "$services/db.ts";
+import { db, getIndex, updatePage } from "$utils/db.ts";
 
 interface Props {
   indexTimestamp: number;
@@ -59,6 +59,28 @@ export const handler: Handlers<Props> = {
     return ctx.render({
       indexTimestamp: index.timestamp,
       pages: index.pages,
+    });
+  },
+  POST: async function (_req, ctx) {
+    const indexId = ctx.params.indexId;
+
+    const index = await getIndex(indexId);
+
+    for (const page of index.pages) {
+      const response = await fetch(page.url);
+      const html = await response.text();
+      const parsedHtml = parse(html);
+      page.title = parsedHtml.querySelector("title")?.textContent ?? null;
+      page.status = response.status;
+      await updatePage({
+        indexId: indexId,
+        pageId: page.id,
+        updatedPage: page,
+      });
+    }
+
+    return new Response(null, {
+      status: 202,
     });
   },
 };
