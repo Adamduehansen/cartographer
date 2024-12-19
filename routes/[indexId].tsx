@@ -89,9 +89,9 @@ export const handler: Handlers<Props> = {
 export default function Home({ data }: PageProps<Props>) {
   return (
     <PagesProvider pages={data.pages}>
-      <p>
+      <h2>
         Index was made on <Time timestamp={data.indexTimestamp} />
-      </p>
+      </h2>
       <Pages />
     </PagesProvider>
   );

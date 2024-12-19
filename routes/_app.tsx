@@ -10,10 +10,12 @@ export default function App({ Component }: PageProps) {
         <link rel="stylesheet" href="pico.min.css" />
       </head>
       <body>
-        <header>
+        <header class="container">
           <h1>Cartographer</h1>
         </header>
-        <Component />
+        <main class="container">
+          <Component />
+        </main>
       </body>
     </html>
   );

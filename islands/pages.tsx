@@ -69,10 +69,6 @@ export function Pages(): JSX.Element {
         </ul>
       </details>
 
-      <form onSubmit={handler}>
-        <button>Index all</button>
-      </form>
-
       <details>
         <summary>Pages in Sitemap: {pages.length}</summary>
         <table>
@@ -98,6 +94,10 @@ export function Pages(): JSX.Element {
           </tbody>
         </table>
       </details>
+
+      <form onSubmit={handler}>
+        <button>Index all</button>
+      </form>
     </>
   );
 }
