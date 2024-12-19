@@ -32,7 +32,9 @@ export function Pages(): JSX.Element {
     });
   }, []);
 
-  const pagesWithNo200Status = pages.filter((page) => page.status !== 200);
+  const pagesWithNo200Status = pages.filter((page) =>
+    page.status !== 200 && page.status !== null
+  );
   const pagesWithoutTitle = pages.filter((page) => page.title === null);
 
   return (
