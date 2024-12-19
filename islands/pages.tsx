@@ -39,65 +39,68 @@ export function Pages(): JSX.Element {
 
   return (
     <>
-      <details>
-        <summary>
-          There are {pagesWithNo200Status.length} pages with no 200 status
-        </summary>
-        <ul>
-          {pagesWithNo200Status.map((page) => {
-            return (
-              <li>
-                <a href={page.url} target="_BLANK">{page.url}</a>
-              </li>
-            );
-          })}
-        </ul>
-      </details>
-
-      <details>
-        <summary>
-          There are {pagesWithoutTitle.length} pages without a title
-        </summary>
-        <ul>
-          {pagesWithoutTitle.map((page) => {
-            return (
-              <li>
-                <a href={page.url} target="_BLANK">{page.url}</a>
-              </li>
-            );
-          })}
-        </ul>
-      </details>
-
-      <details>
-        <summary>Pages in Sitemap: {pages.length}</summary>
-        <table>
-          <thead>
-            <tr>
-              <td>Title</td>
-              <td>Status</td>
-              <td>Actions</td>
-            </tr>
-          </thead>
-
-          <tbody>
-            {pages.map((page) => {
+      <section>
+        <form onSubmit={handler}>
+          <button>Index all pages</button>
+        </form>
+      </section>
+      <section>
+        <details>
+          <summary>
+            There are {pagesWithNo200Status.length} pages with no 200 status
+          </summary>
+          <ul>
+            {pagesWithNo200Status.map((page) => {
               return (
-                <PageDetails
-                  page={page}
-                  onUpdated={(updatedPage) => {
-                    updatePage(updatedPage.id, updatedPage);
-                  }}
-                />
+                <li>
+                  <a href={page.url} target="_BLANK">{page.url}</a>
+                </li>
               );
             })}
-          </tbody>
-        </table>
-      </details>
+          </ul>
+        </details>
 
-      <form onSubmit={handler}>
-        <button>Index all</button>
-      </form>
+        <details>
+          <summary>
+            There are {pagesWithoutTitle.length} pages without a title
+          </summary>
+          <ul>
+            {pagesWithoutTitle.map((page) => {
+              return (
+                <li>
+                  <a href={page.url} target="_BLANK">{page.url}</a>
+                </li>
+              );
+            })}
+          </ul>
+        </details>
+
+        <details>
+          <summary>Pages in Sitemap: {pages.length}</summary>
+          <table>
+            <thead>
+              <tr>
+                <td>Title</td>
+                <td>Status</td>
+                <td>Actions</td>
+              </tr>
+            </thead>
+
+            <tbody>
+              {pages.map((page) => {
+                return (
+                  <PageDetails
+                    page={page}
+                    onUpdated={(updatedPage) => {
+                      updatePage(updatedPage.id, updatedPage);
+                    }}
+                  />
+                );
+              })}
+            </tbody>
+          </table>
+        </details>
+      </section>
     </>
   );
 }
