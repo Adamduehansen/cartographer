@@ -4,6 +4,7 @@ import { Pages } from "$islands/pages.tsx";
 import { PagesProvider } from "$islands/pages-context.tsx";
 import { Page } from "$utils/page.ts";
 import { db, getIndex, updatePage } from "$utils/db.ts";
+import { Time } from "../components/Time.tsx";
 
 interface Props {
   indexTimestamp: number;
@@ -88,7 +89,9 @@ export const handler: Handlers<Props> = {
 export default function Home({ data }: PageProps<Props>) {
   return (
     <PagesProvider pages={data.pages}>
-      <p>Index was made on {data.indexTimestamp}</p>
+      <p>
+        Index was made on <Time timestamp={data.indexTimestamp} />
+      </p>
       <Pages />
     </PagesProvider>
   );
