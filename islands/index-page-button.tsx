@@ -20,6 +20,8 @@ async function indexPage(options: {
 export function IndexPageButton({ pageId }: Props): JSX.Element {
   const [pending, setPending] = useState<"error" | "idle" | "loading">("idle");
 
+  const isLoading = pending === "loading";
+
   async function sendIndexPageRequest(): Promise<void> {
     const indexId = globalThis.location.pathname.substring(1);
     try {
@@ -37,10 +39,12 @@ export function IndexPageButton({ pageId }: Props): JSX.Element {
 
   return (
     <button
-      disabled={pending === "loading"}
+      disabled={isLoading}
       onClick={sendIndexPageRequest}
+      aria-busy={isLoading ? "true" : "false"}
+      class="outline"
     >
-      Index
+      {isLoading ? "" : "Index"}
     </button>
   );
 }
