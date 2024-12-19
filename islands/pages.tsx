@@ -37,10 +37,6 @@ export function Pages(): JSX.Element {
 
   return (
     <>
-      <div>
-        <p>{pages.length} pages found in sitemap</p>
-      </div>
-
       <details>
         <summary>
           There are {pagesWithNo200Status.length} pages with no 200 status
@@ -75,28 +71,31 @@ export function Pages(): JSX.Element {
         <button>Index all</button>
       </form>
 
-      <table>
-        <thead>
-          <tr>
-            <td>Title</td>
-            <td>Status</td>
-            <td>Actions</td>
-          </tr>
-        </thead>
+      <details>
+        <summary>Pages in Sitemap: {pages.length}</summary>
+        <table>
+          <thead>
+            <tr>
+              <td>Title</td>
+              <td>Status</td>
+              <td>Actions</td>
+            </tr>
+          </thead>
 
-        <tbody>
-          {pages.map((page) => {
-            return (
-              <PageDetails
-                page={page}
-                onUpdated={(updatedPage) => {
-                  updatePage(updatedPage.id, updatedPage);
-                }}
-              />
-            );
-          })}
-        </tbody>
-      </table>
+          <tbody>
+            {pages.map((page) => {
+              return (
+                <PageDetails
+                  page={page}
+                  onUpdated={(updatedPage) => {
+                    updatePage(updatedPage.id, updatedPage);
+                  }}
+                />
+              );
+            })}
+          </tbody>
+        </table>
+      </details>
     </>
   );
 }
